@@ -14,7 +14,7 @@ require 'rdoc'
 require 'rspec'
 
 # Load fixtures
-#load File.join(File.dirname(__FILE__), "fixtures", "task.thor")
+load File.join(File.dirname(__FILE__), "fixtures", "pipe.thor")
 #load File.join(File.dirname(__FILE__), "fixtures", "group.thor")
 #load File.join(File.dirname(__FILE__), "fixtures", "script.thor")
 #load File.join(File.dirname(__FILE__), "fixtures", "invoke.thor")
