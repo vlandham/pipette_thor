@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require 'pipette/runner'
 
 describe Pipette::Runner do
   describe "#initialize" do
