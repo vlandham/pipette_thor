@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+# -*- mode: ruby -*-
+
+require "pipette/runner"
+$pipette_runner = true
+Pipette::Runner.start

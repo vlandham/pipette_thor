@@ -1,0 +1,7 @@
+.bundle
+.rvmrc
+Gemfile.lock
+/coverage
+/rdoc
+/pkg
+/spec/sandbox
