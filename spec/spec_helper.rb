@@ -44,5 +44,3 @@ RSpec.configure do |config|
   alias :silence :capture
 end
 
-
-
