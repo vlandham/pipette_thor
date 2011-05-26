@@ -6,6 +6,16 @@ class BasicPipe < Pipette
 
   desc "one", "first step"
   def one
-    puts BasicPipe::all_tasks
+    puts "one"
+  end
+
+  desc "two", "second step"
+  def two
+    puts "two"
+  end
+
+  desc "three", "third step"
+  def three
+    puts "three"
   end
 end

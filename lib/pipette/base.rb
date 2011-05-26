@@ -27,5 +27,34 @@ class Pipette < Thor
     def steps
       self.class.steps
     end
+
+    # Returns the steps to be executed in this
+    # run of the pipeline. By default, all steps
+    # are executed in the order they are provided.
+    # You can limit the steps to be run via options
+    # to the start task
+    #
+    # ==== Returns
+    # Array[Symbol]
+    #
+    def valid_steps
+      @valid_steps ||= self.steps
+    end
+
+    # Set valid steps for the run
+    # This method will transform string steps to
+    # symbol steps. if input is nil, valid steps
+    # are not changed
+    #
+    # ==== Parameters
+    # Array[Symbol|String]
+    #
+    def valid_steps= valid_steps
+      unless valid_steps.nil?
+        valid_steps = valid_steps.collect {|s| s.to_sym}
+        valid_steps = steps.select {|s| valid_steps.include? s}
+        @valid_steps = valid_steps
+      end
+    end
   end
 end
