@@ -1,11 +1,25 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe Pipette do
+  describe "inputs" do
+    it "should have input accessor" do
+      BlankPipe.new().should respond_to(:input)
+      BlankPipe.should respond_to(:input)
+    end
+
+    it "should keep inputs for each step" do
+      args = ["start", "--bam_file", "ad.txt"]
+      content = capture(:stdout) { InputOutputPipe.start(args) }
+      content.should == "one\nad.txt\ntwo\n\n"
+    end
+
+  end
+
   describe "additional options" do
     it "should have steps option" do
-      #BlankPipe.tasks.keys.should == ["start"]
+      BlankPipe.new().should respond_to(:steps)
       args = ["start", "--steps", "one", "two", "three"]
-      options = BlankPipe.start(args)
+      options = BlankPipe.new().options
       #options.should == {"steps" => ["one", "two", "three"]}
     end
   end

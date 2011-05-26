@@ -9,13 +9,22 @@ class Pipette < Thor
     def steps(*step_list)
       @steps ||= []
       steps = [step_list].flatten
-      # TODO:
-      # allows us to use this same method as a
-      # getter and a setter. Not sure that this
-      # is a very good idea...
       @steps = steps unless steps.empty?
       @steps
     end
+
+    def input(name = nil, options = {})
+      @inputs ||= []
+      if name
+        @inputs << name
+        method_option(name, options)
+      end
+      @inputs
+    end
+  end
+
+  def initialize(args=[], options={}, config={})
+    super(args,options,config)
   end
 
   no_tasks do # hide from base Thor
@@ -55,6 +64,14 @@ class Pipette < Thor
         valid_steps = steps.select {|s| valid_steps.include? s}
         @valid_steps = valid_steps
       end
+    end
+
+    def input
+      self.options.select {|key, value| self.class.input.include? key.to_sym}
+    end
+
+    def output
+      @output ||= {}
     end
   end
 end

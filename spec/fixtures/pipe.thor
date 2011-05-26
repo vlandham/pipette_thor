@@ -19,3 +19,22 @@ class BasicPipe < Pipette
     puts "three"
   end
 end
+
+class InputOutputPipe < Pipette
+  steps :one, :two
+
+  desc "one", "first step"
+  input :bam_file, :type => :string
+  def one
+    puts "one"
+    puts input["bam_file"]
+    output[:out_from_one] = "out from one"
+  end
+
+  desc "two", "second step"
+  input :out_from_one, :type => :string
+  def two
+    puts "two"
+    puts input[:out_from_one]
+  end
+end
