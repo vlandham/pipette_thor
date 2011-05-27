@@ -3,5 +3,6 @@
 Gemfile.lock
 /coverage
 /rdoc
+/doc
 /pkg
 /spec/sandbox
