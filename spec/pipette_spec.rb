@@ -1,18 +1,33 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe Pipette do
-  describe "inputs" do
+  describe "input and output" do
     it "should have input accessor" do
       BlankPipe.new().should respond_to(:input)
       BlankPipe.should respond_to(:input)
     end
 
-    it "should keep inputs for each step" do
-      args = ["start", "--bam_file", "ad.txt"]
-      content = capture(:stdout) { InputOutputPipe.start(args) }
-      content.should == "one\nad.txt\ntwo\n\n"
+    it "should have output accessor" do
+      BlankPipe.new.should respond_to(:output)
     end
 
+    it "should take input from command line like Thor" do
+      args = ["two", "--out_from_one", "out.txt", "--out_from_one_2", "out2.txt"]
+      content = capture(:stdout) { InputOutputPipe.start(args) }
+      content.should == "two\nout.txt\nout2.txt\n"
+    end
+
+    it "should set output" do
+      args = ["one", "--bam_file", "in.txt"]
+      content = capture(:stdout) { InputOutputPipe.start(args) }
+      content.should == "one\nin.txt\nout_to_two.txt\n"
+    end
+
+    it "should pipe output from previous step to input for next step" do
+      args = ["start", "--bam_file", "in_one.txt"]
+      content = capture(:stdout) { InputOutputPipe.start(args) }
+      content.should == "one\nin_one.txt\nout_to_two.txt\ntwo\nout_to_two.txt\nout2.txt\n"
+    end
   end
 
   describe "additional options" do
